@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Valley Girl — Lash Tech & Esthetician · North Hollywood</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --off-black: #111111; --dark: #1A1A1A; --mid-dark: #2A2A2A;
+      --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.15);
+      --white: #FFFFFF; --off-white: #F8F6F2; --gray: #888880;
+      --serif: 'Cormorant Garamond', serif; --sans: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--sans); font-weight: 300; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 56px; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.08em; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 11px 26px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px 80px 72px; }
+    .hero-eyebrow { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+    .hero-title { font-family: var(--serif); font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 28px; }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 0.9rem; line-height: 1.9; color: var(--gray); max-width: 380px; margin-bottom: 48px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+    .btn-gold { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 16px 36px; background: var(--gold); color: var(--black); text-decoration: none; transition: opacity 0.2s; }
+    .btn-gold:hover { opacity: 0.85; }
+    .btn-ghost { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 16px 36px; border: 1px solid rgba(255,255,255,0.2); color: var(--white); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats { display: flex; gap: 40px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .stat-num { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
+    .hero-right { overflow: hidden; background: var(--dark); }
+    .hero-photo-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 55% 45%; height: 100%; gap: 2px; }
+    .hero-photo-grid .main-photo { grid-column: 1 / 3; overflow: hidden; }
+    .hero-photo-grid img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.7s; filter: brightness(0.88); }
+    .hero-photo-grid div:hover img { transform: scale(1.04); filter: brightness(1); }
+    .side-photo { overflow: hidden; }
+
+    .marquee-wrap { background: var(--gold); color: var(--black); padding: 13px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-flex; animation: marquee 26s linear infinite; }
+    .marquee-item { display: inline-flex; align-items: center; gap: 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 32px; }
+    .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(0,0,0,0.3); flex-shrink: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .section-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 48px; }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    .meet { padding: 100px 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: var(--off-black); }
+    .meet-img { position: relative; }
+    .meet-img img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; filter: brightness(0.9); }
+    .meet-img::before { content: ''; position: absolute; top: -12px; left: -12px; width: 80px; height: 80px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); z-index: 1; }
+    .meet-img::after { content: ''; position: absolute; bottom: -12px; right: -12px; width: 80px; height: 80px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+    .meet-text h2 { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.15; margin-bottom: 8px; }
+    .meet-text h2 em { font-style: italic; color: var(--gold); }
+    .meet-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+    .meet-text p { font-size: 0.9rem; line-height: 1.9; color: var(--gray); margin-bottom: 16px; }
+    .meet-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .meet-badge { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); }
+
+    .services { padding: 100px 72px; background: var(--black); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .service-card { background: var(--dark); padding: 40px 32px; border: 1px solid rgba(255,255,255,0.04); border-top: 1px solid rgba(201,168,76,0.4); transition: background 0.25s; }
+    .service-card:hover { background: var(--mid-dark); }
+    .service-icon { font-size: 1.6rem; margin-bottom: 20px; display: block; }
+    .service-name { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; margin-bottom: 12px; }
+    .service-desc { font-size: 0.84rem; line-height: 1.8; color: var(--gray); }
+
+    .gallery { padding: 100px 72px; background: var(--off-black); }
+    .gallery-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .g-item { overflow: hidden; aspect-ratio: 1; background: var(--dark); }
+    .g-item img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.5s, filter 0.5s; filter: brightness(0.85); }
+    .g-item:hover img { transform: scale(1.07); filter: brightness(1); }
+    .g-item.tall { aspect-ratio: unset; grid-row: span 2; }
+    .g-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+
+    .prepare { padding: 100px 72px; background: var(--black); }
+    .prepare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .prepare-card { background: var(--dark); border: 1px solid rgba(255,255,255,0.06); padding: 36px 32px; border-top: 1px solid rgba(201,168,76,0.4); }
+    .prepare-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 20px; color: var(--gold); }
+    .prepare-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .prepare-list li { font-size: 0.84rem; line-height: 1.7; color: var(--gray); padding-left: 16px; position: relative; }
+    .prepare-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; top: 3px; }
+
+    .aftercare { padding: 100px 72px; background: var(--off-black); }
+    .aftercare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .aftercare-card { background: var(--black); border: 1px solid rgba(255,255,255,0.06); padding: 28px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+    .aftercare-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .aftercare-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .aftercare-card p { font-size: 0.82rem; line-height: 1.7; color: var(--gray); }
+
+    .policy { padding: 100px 72px; background: var(--black); }
+    .policy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .policy-card { background: var(--dark); padding: 36px 28px; border-top: 1px solid rgba(201,168,76,0.4); }
+    .policy-icon { font-size: 1.5rem; margin-bottom: 14px; display: block; }
+    .policy-card h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 10px; }
+    .policy-card p { font-size: 0.82rem; line-height: 1.8; color: var(--gray); }
+
+    .booking { margin: 0 72px 100px; background: var(--dark); border: 1px solid rgba(201,168,76,0.25); padding: 96px 80px; text-align: center; position: relative; overflow: hidden; }
+    .booking::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .booking::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .booking h2 { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 300; line-height: 1.15; margin-bottom: 16px; }
+    .booking h2 em { font-style: italic; color: var(--gold); }
+    .booking p { font-size: 0.9rem; line-height: 1.8; color: var(--gray); max-width: 400px; margin: 0 auto 44px; }
+    .booking-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 44px 72px; display: flex; justify-content: space-between; align-items: center; background: var(--off-black); }
+    .footer-logo { font-family: var(--serif); font-size: 1rem; font-weight: 400; letter-spacing: 0.06em; color: var(--gold); }
+    .footer-center { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--gray); text-align: center; line-height: 1.9; }
+    .footer-ig a { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; } .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; } .hero-left { padding: 96px 22px 44px; } .hero-right { height: 70vw; }
+      .meet { grid-template-columns: 1fr; padding: 64px 22px; gap: 40px; }
+      .services, .gallery, .prepare, .aftercare, .policy { padding: 64px 22px; }
+      .services-grid, .aftercare-grid, .policy-grid { grid-template-columns: 1fr; }
+      .prepare-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .g-item.tall, .g-item.wide { grid-row: span 1; grid-column: span 1; aspect-ratio: 1; }
+      .booking { margin: 0 16px 64px; padding: 60px 24px; }
+      footer { flex-direction: column; gap: 18px; text-align: center; padding: 36px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">The Valley Girl</a>
+    <ul class="nav-links">
+      <li><a href="#meet">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#book">Book</a></li>
+    </ul>
+    <a href="#book" class="nav-cta">Book Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">North Hollywood, CA</p>
+      <h1 class="hero-title">Where lashes<br>meet <em>luxury.</em></h1>
+      <p class="hero-sub">Certified lash tech & licensed esthetician with 6+ years of experience. Specializing in lash extensions and full body waxing in North Hollywood.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn-gold">Book an Appointment</a>
+        <a href="#gallery" class="btn-ghost">View My Work</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">6+</div><div class="stat-label">Years Experience</div></div>
+        <div><div class="stat-num">2</div><div class="stat-label">Certifications</div></div>
+        <div><div class="stat-num">✦</div><div class="stat-label">North Hollywood</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-grid">
+        <div class="main-photo"><img src="IMG_9408.jpeg" alt="Lash work" /></div>
+        <div class="side-photo"><img src="IMG_9409.jpeg" alt="Lash extensions" /></div>
+        <div class="side-photo"><img src="IMG_9410.jpeg" alt="Beauty work" /></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">Lash Extensions <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Full Body Waxing <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Certified Tech <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Licensed Esthetician <span class="marquee-dot"></span></span>
+      <span class="marquee-item">6+ Years Experience <span class="marquee-dot"></span></span>
+      <span class="marquee-item">North Hollywood <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Lash Extensions <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Full Body Waxing <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Certified Tech <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Licensed Esthetician <span class="marquee-dot"></span></span>
+      <span class="marquee-item">6+ Years Experience <span class="marquee-dot"></span></span>
+      <span class="marquee-item">North Hollywood <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <section class="meet" id="meet">
+    <div class="meet-img fade-up">
+      <img src="IMG_9411.jpeg" alt="The Valley Girl" />
+    </div>
+    <div class="meet-text fade-up">
+      <p class="section-label">Your specialist</p>
+      <h2>Meet <em>The Valley Girl.</em></h2>
+      <p class="meet-title">Certified Lash Tech · Licensed Esthetician · Wax Specialist</p>
+      <p>With over 6 years in the beauty world, I've had the honor of servicing and connecting with hundreds of incredible women. This journey has shaped me into the artist and woman I am today.</p>
+      <p>My focus is making every client feel confident, cared for, and beautiful — from your first appointment to your tenth. Precision and attention to detail are non-negotiable in my suite.</p>
+      <div class="meet-badges">
+        <span class="meet-badge">Certified Lash Tech</span>
+        <span class="meet-badge">Licensed Esthetician</span>
+        <span class="meet-badge">Wax Specialist · 6+ Yrs</span>
+        <span class="meet-badge">North Hollywood</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <p class="section-label fade-up">What I offer</p>
+    <h2 class="section-title fade-up">Services built for <em>you.</em></h2>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <span class="service-icon">✨</span>
+        <h3 class="service-name">Lash Extensions</h3>
+        <p class="service-desc">Classic, hybrid, and volume sets customized to your eye shape and lifestyle. Precision application for long-lasting, beautiful results.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">🌿</span>
+        <h3 class="service-name">Full Body Waxing</h3>
+        <p class="service-desc">Smooth, clean, and efficient waxing services for the full body. 6+ years of experience means less discomfort and better results every time.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">💆</span>
+        <h3 class="service-name">Esthetics Services</h3>
+        <p class="service-desc">Licensed esthetician services tailored to your skin's needs. Combining expertise and care for a complete beauty experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+    <div class="gallery-top">
+      <div>
+        <p class="section-label fade-up">Portfolio</p>
+        <h2 class="section-title fade-up" style="margin-bottom:0;">The <em>work.</em></h2>
+      </div>
+      <a href="https://instagram.com/theevalleygirl" class="btn-ghost fade-up" style="white-space:nowrap; align-self:flex-end;">See more →</a>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item tall fade-up"><img src="IMG_9412.jpeg" alt="Lash set" /></div>
+      <div class="g-item fade-up"><img src="IMG_9413.jpeg" alt="Lash close up" /></div>
+      <div class="g-item fade-up"><img src="IMG_9414.jpeg" alt="Beauty work" /></div>
+      <div class="g-item fade-up"><img src="IMG_9408.jpeg" alt="Lash extensions" /></div>
+      <div class="g-item fade-up"><img src="IMG_9409.jpeg" alt="Lash set" /></div>
+      <div class="g-item wide fade-up"><img src="IMG_9410.jpeg" alt="Full lash set" /></div>
+    </div>
+  </section>
+
+  <section class="prepare">
+    <p class="section-label fade-up">Before your visit</p>
+    <h2 class="section-title fade-up">How to <em>prepare.</em></h2>
+    <div class="prepare-grid">
+      <div class="prepare-card fade-up">
+        <h3>✦ Booking Instructions</h3>
+        <ul class="prepare-list">
+          <li>Always check the link in bio for available appointments first</li>
+          <li>Don't see your date? DM me with the time in mind — I may be able to fit you in</li>
+          <li>Please do not DM asking what dates are available without checking the booking app first</li>
+        </ul>
+      </div>
+      <div class="prepare-card fade-up">
+        <h3>✦ Before Your Appointment</h3>
+        <ul class="prepare-list">
+          <li>Come with a clean, freshly washed face and lashes</li>
+          <li>Avoid moisturizers, SPF, or facial creams until after your service</li>
+          <li>Remove contact lenses before your appointment</li>
+          <li>Eat before your appointment and wear comfortable clothing</li>
+          <li>Shower beforehand — you cannot shower for 24hrs after lash application</li>
+          <li>Silence your phone 💕</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="aftercare">
+    <p class="section-label fade-up">After your appointment</p>
+    <h2 class="section-title fade-up">Lash <em>aftercare.</em></h2>
+    <div class="aftercare-grid">
+      <div class="aftercare-card fade-up"><span class="aftercare-icon">💧</span><p>Avoid getting lashes wet for the <strong>first 24–48 hours</strong></p></div>
+      <div class="aftercare-card fade-up"><span class="aftercare-icon">🚫</span><p>Do not <strong>rub or pull</strong> your lash extensions</p></div>
+      <div class="aftercare-card fade-up"><span class="aftercare-icon">🧴</span><p>Clean lashes daily with an <strong>oil-free lash cleanser</strong>, fan dry on cold, brush with spoolie</p></div>
+      <div class="aftercare-card fade-up"><span class="aftercare-icon">💄</span><p>No <strong>mascara or oil-based products</strong> on your lashes</p></div>
+      <div class="aftercare-card fade-up"><span class="aftercare-icon">😴</span><p>Avoid <strong>sleeping on your face</strong> to preserve your set</p></div>
+      <div class="aftercare-card fade-up"><span class="aftercare-icon">📅</span><p>Stay on top of <strong>infills every 2–3 weeks</strong> for best results</p></div>
+    </div>
+  </section>
+
+  <section class="policy">
+    <p class="section-label fade-up">Good to know</p>
+    <h2 class="section-title fade-up">Booking <em>policy.</em></h2>
+    <div class="policy-grid">
+      <div class="policy-card fade-up">
+        <span class="policy-icon">🔄</span>
+        <h3>Rescheduling</h3>
+        <p>Rescheduling and cancellations can be done through your confirmation email at any time.</p>
+      </div>
+      <div class="policy-card fade-up">
+        <span class="policy-icon">⚠️</span>
+        <h3>Late Cancellations</h3>
+        <p>Same-day cancellations will be charged <strong style="color:var(--gold)">50%</strong> of the total services booked.</p>
+      </div>
+      <div class="policy-card fade-up">
+        <span class="policy-icon">❌</span>
+        <h3>No Shows</h3>
+        <p>Cancellations under 4hrs and no-shows will be charged <strong style="color:var(--gold)">100%</strong> of the total services booked.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="booking fade-up" id="book">
+    <h2>Ready to book<br>your <em>appointment?</em></h2>
+    <p>Check the link in bio for available appointments. Don't see your date? Send me a DM — I'll do my best to fit you in.</p>
+    <div class="booking-btns">
+      <a href="https://instagram.com/theevalleygirl" class="btn-gold">Book Now</a>
+      <a href="https://instagram.com/theevalleygirl" class="btn-ghost">DM on Instagram</a>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">The Valley Girl</span>
+    <div class="footer-center">North Hollywood, CA<br>© 2025 The Valley Girl · All rights reserved</div>
+    <div class="footer-ig"><a href="https://instagram.com/theevalleygirl">@theevalleygirl ↗</a></div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
